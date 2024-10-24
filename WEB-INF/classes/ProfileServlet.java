@@ -1,15 +1,12 @@
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
-
 public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         String userId = (session != null) ? (String) session.getAttribute("userId") : null;
-
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-
         if (userId != null) {
             out.println("<!DOCTYPE html>");
             out.println("<html lang='en'>");
@@ -22,15 +19,12 @@ public class ProfileServlet extends HttpServlet {
             out.println("<h1>Welcome, " + userId + "!</h1>");
             out.println("<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='profile'>");
             out.println("<p>Your user ID is: " + userId + "</p>");
-            
-            // Form to add items to the cart
             out.println("<form action='cart' method='post'>");
             out.println("<input type='text' name='item' placeholder='Add to cart' required>");
             out.println("<input type='hidden' name='action' value='add'>");
             out.println("<button type='submit'>Add to Cart</button>");
             out.println("</form>");
             out.println("<a href='cart'>View Cart</a>");
-            
             out.println("</body>");
             out.println("</html>");
         } else {
